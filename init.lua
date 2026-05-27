@@ -52,7 +52,7 @@ vim.lsp.enable("lua_ls")
 -- and raises a lot of [duplicate-doc-field] warnings
 local runtime_files = vim.api.nvim_get_runtime_file("", true)
 for k, v in ipairs(runtime_files) do
-  if v == "/home/adam/.config/nvim/after" or v == "/home/adam/.config/nvim" then
+  if v == "/home/adam/.config/nvim" then
     table.remove(runtime_files, k)
   end
 end
