@@ -1,32 +1,37 @@
-# NEOVIM CONFIG
+# Neovim Config
 
----
+A small and minimal Neovim setup.
 
-Minimal neovim config
+## Supported Languages
 
-## SUPPORTED LANGUAGES
+Currently supported:
 
-`
-lua
-`
+- `lua`
 
-To add a language you have to add the following things:
-1. enable a lsp
-2. add a parser for treesitter
+## Adding a Language
 
-## DEPENDENCIES
+To add support for a new language, configure both of these parts:
 
-### Programs
+1. Enable the language server (LSP).
+2. Add the corresponding Tree-sitter parser.
 
-`
+## Dependencies
+
+### Required Programs
+
+Install these tools before using the config:
+
+```bash
 lua-language-server
 tree-sitter-cli
-`
+```
 
-### PATH
+### Required in PATH
 
-`
+Make sure these executables are available in your `PATH`:
+
+```bash
 lua-language-server
 node
 gcc
-`
+```
