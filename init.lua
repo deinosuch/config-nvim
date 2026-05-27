@@ -82,7 +82,7 @@ local lua_ls_config = {
 vim.lsp.config('lua_ls', lua_ls_config)
 
 ------------------------- MINI.NVIM SETUPS ------------------------
--- TODO: mini.icons, mini.pick, vim.snippet/mini.snippets
+--  TODO: mini.icons, mini.pick, vim.snippet/mini.snippets
 
 -- Around/inside motions
 require('mini.ai').setup()
@@ -182,7 +182,16 @@ end
 
 vim.api.nvim_create_autocmd("PackChanged", { callback = treesitter_hook })
 
-local treesitter = require('nvim-treesitter')
-treesitter.install({
-  'lua'
+local treesitter_parsers = { 'lua' }
+require('nvim-treesitter').install(treesitter_parsers)
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = treesitter_parsers,
+
+  callback = function()
+    vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo[0][0].foldmethod = 'expr'
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    vim.treesitter.start()
+  end,
 })
