@@ -1,0 +1,24 @@
+{
+  "plugins": {
+    "mini.nvim": {
+      "rev": "44657837c7338e52727facc85c1d95bec1f6bd7c",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "nvim-lspconfig": {
+      "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-tmux-navigation": {
+      "rev": "4898c98702954439233fdaf764c39636681e2861",
+      "src": "https://github.com/alexghergh/nvim-tmux-navigation"
+    },
+    "tokyonight": {
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim"
+    },
+    "tokyonight.nvim": {
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim"
+    }
+  }
+}
