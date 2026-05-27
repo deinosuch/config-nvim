@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 -- Most general options set by mini.basics
 
 
@@ -15,11 +13,6 @@ vim.o.undofile = true
 -- Other visual options
 vim.o.scrolloff = 10
 vim.o.relativenumber = true
-vim.o.autocomplete = true
-
--- Keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Package managing
 vim.pack.add({
@@ -51,6 +44,39 @@ require("nvim-tmux-navigation").setup({
 
 -- LSPs
 vim.lsp.enable("lua_ls")
+
+-- Lua_ls settings for nvim configuring
+--  NOTE: With these settings lua_ls works ONLY on nvim settings
+
+-- lua language server is super confused when editing lua files in the config
+-- and raises a lot of [duplicate-doc-field] warnings
+local runtime_files = vim.api.nvim_get_runtime_file("", true)
+for k, v in ipairs(runtime_files) do
+  if v == "/home/adam/.config/nvim/after" or v == "/home/adam/.config/nvim" then
+    table.remove(runtime_files, k)
+  end
+end
+
+---@type vim.lsp.Config
+local lua_ls_config = {
+  ---@type lspconfig.settings.lua_ls
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = { 'lua/?.lua', 'lua/?/init.lua' },
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = runtime_files
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+    },
+  },
+}
+vim.lsp.config('lua_ls', lua_ls_config)
 
 ------------------------- MINI.NVIM SETUPS ------------------------
 -- TODO: mini.icons, mini.pick, vim.snippet/mini.snippets
@@ -91,6 +117,11 @@ require('mini.pairs').setup()
 require('mini.trailspace').setup()
 -- Disable trailspace highlight since they delete on write
 vim.g.minitrailspace_disable = true
+
+------------------------ KEYMAPS ------------------------
+
+vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist)
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 ------------------------ AUTOFORMAT SETUP ------------------------
 
